@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	<flow name="get:\user:sahakar-user-exp-api-config" doc:id="50f93942-10f6-472d-9d52-030fd9db86d4" >
+		<logger level="INFO" doc:name="Logger" doc:id="47569896-7f0c-4771-bf0e-af87b2b7dfa7" message="Request Received with Query Params:#[attributes.queryParams]"/>
+		<ee:transform doc:name="Transform Message" doc:id="9dddc440-c39d-46d4-ac14-f40a75335513" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+[
+  {
+    UserDetails: {
+      userid: "bkumar123",
+      username: "bishnukumar",
+      firstname: "BISHNU",
+      lastname: "KUMAR",
+      age: 34,
+      department: "SAP"
+    }
+  }
+]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="post:\createUser:application\json:sahakar-user-exp-api-config" doc:id="551d8947-8992-4e07-8ef1-55cac730e9c0" >
+		<ee:transform doc:name="Transform Message" doc:id="46a7823a-24c1-4ed0-9155-bae6063d1124" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  userCreateResponse: {
+    message: "User Created successfully"
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
